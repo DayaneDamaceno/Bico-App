@@ -5,20 +5,24 @@ import { Categoria } from "./components/Categoria";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Dayane Wesley e dudu</Text>
-      <Button title="Clique Aqui" />
       <StatusBar style="auto" />
+      <Text>Dayane Wesley e dudu e Gui</Text>
+      <Button title="Clique Aqui" />
       <View style={styles.listaCategorias}>
-        <Categoria icon="icon" nome="Reformas e raparos" />
+        <Categoria icon="icon" nome="Reformas e reparos" />
         <Categoria nome="nome 2" icon="icon 2" />
         <Categoria nome="nome 3" icon="icon 3" />
         <Categoria nome="nome 4" icon="icon 4" />
+        <Categoria nome="sdasdsad" />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  nome: {
+    backgroundColor: "#212334",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
