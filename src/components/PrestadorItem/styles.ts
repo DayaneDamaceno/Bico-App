@@ -21,14 +21,9 @@ export const styles = StyleSheet.create({
     gap: 4,
     flexDirection: "row",
   },
-  lista: {
-    paddingHorizontal: 16,
-  },
   roundImage: {
     width: 45,
     height: 45,
     borderRadius: 50,
-    borderWidth: 1,
-    borderColor: "#000",
   },
 });

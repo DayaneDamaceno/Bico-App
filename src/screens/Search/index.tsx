@@ -1,9 +1,10 @@
 import { View } from "react-native";
-import { Prestadores } from "../../components/Prestadores";
+import { PrestadoresMaisProximosScreen } from "../PrestadoresMaisProximos";
+
 export function SearchScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <Prestadores />
+      <PrestadoresMaisProximosScreen />
     </View>
   );
 }
