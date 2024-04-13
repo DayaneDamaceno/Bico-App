@@ -9,6 +9,10 @@ interface PrestadorItemProps {
 }
 
 export function PrestadorItem({ item }: Readonly<PrestadorItemProps>) {
+  const mediaEstrelasFormatado = item.mediaEstrelas
+    .toFixed(1)
+    .replace(".", ",");
+
   return (
     <TouchableOpacity style={styles.item}>
       <Image source={{ uri: item.avatarUrl }} style={styles.roundImage} />
@@ -16,7 +20,7 @@ export function PrestadorItem({ item }: Readonly<PrestadorItemProps>) {
         <Text style={styles.nome}>{item.nome}</Text>
         <View style={styles.avaliacao}>
           <Fontisto name="star" size={16} color="#EAB308" />
-          <Text>4,5</Text>
+          <Text>{mediaEstrelasFormatado}</Text>
         </View>
       </View>
     </TouchableOpacity>

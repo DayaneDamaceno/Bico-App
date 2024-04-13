@@ -2,8 +2,7 @@ export interface Prestador {
   id: number;
   nome: string;
   avatarUrl: string;
-  latitude: number;
-  longitude: number;
+  mediaEstrelas: number;
 }
 
 export const fetchPrestadoresMaisProximos = async (
