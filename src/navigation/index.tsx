@@ -1,16 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { ChatScreen } from "../screens/ChatScreen";
-import { ProfileScreen } from "../screens/ProfileScreen";
-import { SearchScreen } from "../screens/SearchScreen";
+import { ChatScreen } from "../screens/Chat";
+import { ProfileScreen } from "../screens/Profile";
+import { SearchScreen } from "../screens/Search";
 
 const Tab = createBottomTabNavigator();
 
 export function TabNavigation() {
+  const { bottom } = useSafeAreaInsets();
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { height: 60, paddingBottom: 10, paddingTop: 5 }, // Adicione estilização aqui
+        tabBarStyle: {
+          height: 60 + bottom,
+          paddingBottom: bottom,
+          paddingTop: 5,
+        }, 
       }}
     >
       <Tab.Screen
