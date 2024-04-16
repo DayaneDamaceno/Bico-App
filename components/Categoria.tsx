@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 
 interface CategoriaProps {
-  icon?: string;
+  id: string;
   nome: string;
 }
 
