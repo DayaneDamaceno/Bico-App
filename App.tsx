@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View} from 'react-native';
-import Categoria from './Categoria';
+import Habilidade from './Habilidade';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
@@ -13,7 +13,7 @@ export default function App() {
       <Button title='Clique ai' ></Button>
       <StatusBar style="auto" />*/}
 
-      <Categoria/>
+      <Habilidade idCategoria={1} nomeCategoria='Beleza' />
     </View>
     </QueryClientProvider>
   );

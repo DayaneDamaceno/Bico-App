@@ -3,11 +3,15 @@ import React, { useState, useEffect, Component}  from 'react';
 import { ActivityIndicator, SafeAreaView, Button, FlatList, StyleSheet, Text, View} from 'react-native';
 import { obterHabilidades } from './src/Services/Api';
 import { useQuery } from 'react-query';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { AntDesign } from '@expo/vector-icons';
 
+type habilidade = {
+  idCategoria: number;
+  nomeCategoria: string
+};
 
-export default function Categoria() {
-  const {isLoading, data } = useQuery("habilidades", () => obterHabilidades(1))  //Id categoria
+export default function habilidade(habilidade : habilidade) {
+  const {isLoading, data } = useQuery("habilidades", () => obterHabilidades(habilidade.idCategoria))  //Id categoria
   if(isLoading){
 
     return <ActivityIndicator />
@@ -19,8 +23,9 @@ export default function Categoria() {
     <View style={styles.container}>
       <View style={styles.top}>
       
-      <Icon style={styles.voltar} name="left" size={20} color="#000000" />
-      <Text style={styles.titulo}> Reforma e reparos</Text>
+      {/* <Icon style={styles.voltar} name="left" size={20} color="#000000" /> */}
+      <AntDesign tyle={styles.voltar} name="left" size={20} color="#000000" />
+      <Text style={styles.titulo}>{habilidade.nomeCategoria}</Text>
       </View>
 
       <View style={styles.content}>
@@ -55,10 +60,10 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
     paddingLeft: 20,
     borderBottomWidth: 1.5,
-    borderBottomColor: '#E2E8F0'
+    borderBottomColor: '#E2E8F0',
+    gap: 5
   },
   voltar: {
-    paddingRight:10
   },
   titulo:{
     fontSize: 18,
