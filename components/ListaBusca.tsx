@@ -1,7 +1,7 @@
-import { ReactNode, SetStateAction, useEffect, useState } from "react";
+import React, { ReactNode, SetStateAction, useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View, TextInput, FlatList } from "react-native";
 import axios from "axios";
-import ListaBusca from "./ListaBusca";
+import { AntDesign } from '@expo/vector-icons';
 
 interface Habilidade {
   id: number,
@@ -9,11 +9,15 @@ interface Habilidade {
   categoriaId: number
 }
 
-export default function Busca() {
+export default function ListaBusca(texto: string) {
   const [busca, setBusca] = useState('');
-
-  async function Buscar(textoBusca: string) {    
-    ListaBusca(textoBusca);
+  const [lista, setLista] = useState<Habilidade[]>([]);
+  setBusca(texto);
+  
+  async function Buscar(textoBusca: string) {
+    const response = await fetch(`http://192.168.0.76:5283/Habilidade/Buscar/${textoBusca}`);
+    const data = await response.json();
+    setLista(data);
   }
   useEffect(() => {
     Buscar(busca);
@@ -21,11 +25,18 @@ export default function Busca() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textinput}>      
+      <View style={styles.top}>
         <TextInput
           value={busca}
           onChangeText={setBusca}
           placeholder="O que você precisa?"
+        />
+      </View>
+      <View style={styles.content}>
+        <FlatList
+          data={lista}
+          renderItem={({ item }) => <Text style={styles.itens}>{item.nome}</Text>}
+          keyExtractor={item => item.id.toString()}
         />
       </View>
     </View>
@@ -33,27 +44,29 @@ export default function Busca() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: "2%",
-    backgroundColor: 'white',
+  list: {
+    paddingTop: 25,
+    backgroundColor: 'grey',
     width: '100%',
     height: '100%'
-  }, 
-  textinput: {
-    justifyContent: 'center',
+  },
+  container: {
+    paddingTop: "10%",
+    backgroundColor: '#3B82F6',
+    width: '100%',
+    height: '100%'
+  },
+  input: {
     padding: 10,
     gap: 12,
     width: 400,
     height: 38,
-    left: "4%",
-    top: "80%",
-    shadowColor: "black",
-    shadowRadius: 5,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
-    borderStyle: "solid",
-    borderColor: "#CBD5E1",
-    borderWidth: 1
+    left: 15,
+    right: 6,
+    top: 390,
+    backgroundColor: 'white',
+    borderRadius: 5
+
   },
   top: {
     backgroundColor: 'white',

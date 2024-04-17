@@ -2,6 +2,7 @@ import { ReactNode, SetStateAction, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View, TextInput, FlatList } from "react-native";
 import axios from "axios";
+import ListaBusca from "./components/ListaBusca";
 import Busca from "./components/Busca";
 
 
