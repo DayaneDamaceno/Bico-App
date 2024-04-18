@@ -22,11 +22,6 @@ type HabilidadesScreenProps = {
   navigation: HabilidadesScreenNavigationProp;
 };
 
-// interface HabilidadeProps {
-//   // idCategoria: number;
-//   // nomeCategoria: string;
-// }
-
 export function HabilidadeScreen(props: HabilidadesScreenProps) {
   const { isLoading, data } = useQuery("habilidades", () =>
     obterHabilidades(1)
@@ -35,21 +30,18 @@ export function HabilidadeScreen(props: HabilidadesScreenProps) {
     return <ActivityIndicator />;
   }
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.itens}
-              onPress={() => props.navigation.navigate("Prestadores")}
-            >
-              <Text>{item.nome}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </View>
-    </View>
+    <FlatList
+      style={styles.container}
+      data={data}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.habilidade}
+          onPress={() => props.navigation.navigate("Prestadores")}
+        >
+          <Text>{item.nome}</Text>
+        </TouchableOpacity>
+      )}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 }

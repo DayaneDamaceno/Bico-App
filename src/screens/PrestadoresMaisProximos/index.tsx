@@ -8,10 +8,21 @@ import {
 import { styles } from "./styles";
 import { PrestadorItem } from "../../components/PrestadorItem";
 import { usePrestadoresMaisProximos } from "../../hooks/usePrestadoresMaisProximos";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigations/StackNavigations";
 
-interface PrestadoresProps {}
+type PrestadoresMaisProximosScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Prestadores"
+>;
 
-export function PrestadoresMaisProximosScreen(props: PrestadoresProps) {
+type PrestadoresMaisProximosScreenProps = {
+  navigation: PrestadoresMaisProximosScreenNavigationProp;
+};
+
+export function PrestadoresMaisProximosScreen(
+  props: PrestadoresMaisProximosScreenProps
+) {
   const {
     prestadores,
     fetchNextPage,
