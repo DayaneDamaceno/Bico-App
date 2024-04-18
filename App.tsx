@@ -1,33 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { Categoria } from "./components/Categoria";
+import { NavigationContainer } from "@react-navigation/native";
+import { TabNavigation } from "./src/navigation";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Dayane Wesley e dudu</Text>
-      <Button title="Clique Aqui" />
-      <StatusBar style="auto" />
-      <View style={styles.listaCategorias}>
-        <Categoria icon="icon" nome="Reformas e raparos" />
-        <Categoria nome="nome 2" icon="icon 2" />
-        <Categoria nome="nome 3" icon="icon 3" />
-        <Categoria nome="nome 4" icon="icon 4" />
-      </View>
-    </View>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <TabNavigation />
+        </NavigationContainer>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  listaCategorias: {
-    gap: 10,
-    flexDirection: "row",
-    // flexWrap: "wrap",
-  },
-});
