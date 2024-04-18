@@ -1,26 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import { Habilidade } from "./Habilidade";
+import { NavigationContainer } from "@react-navigation/native";
+import { TabNavigation } from "./src/navigations/TabNavigation";
 import { QueryClient, QueryClientProvider } from "react-query";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <StatusBar />
-      <View style={styles.container}>
-        <Habilidade idCategoria={1} nomeCategoria="Beleza" />
-      </View>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <TabNavigation />
+        </NavigationContainer>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
