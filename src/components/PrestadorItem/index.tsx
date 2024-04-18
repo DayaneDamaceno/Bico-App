@@ -1,5 +1,5 @@
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import { Prestador } from "../../api/PrestadoresServiceApi";
+import { Prestador } from "../../api/ApiService";
 import { Fontisto } from "@expo/vector-icons";
 
 import { styles } from "./styles";

@@ -5,19 +5,27 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import { ChatScreen } from "../screens/Chat";
 import { ProfileScreen } from "../screens/Profile";
 import { SearchScreen } from "../screens/Search";
+import { SearchStackNavigation } from "./StackNavigations";
 
-const Tab = createBottomTabNavigator();
+type TabParamList = {
+  Conversas: undefined;
+  Search: undefined;
+  Profile: undefined;
+};
+
+const Tab = createBottomTabNavigator<TabParamList>();
 
 export function TabNavigation() {
   const { bottom } = useSafeAreaInsets();
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           height: 60 + bottom,
           paddingBottom: bottom,
           paddingTop: 5,
-        }, 
+        },
       }}
     >
       <Tab.Screen
@@ -32,7 +40,7 @@ export function TabNavigation() {
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={SearchStackNavigation}
         options={{
           tabBarLabel: "Busca",
           tabBarIcon: ({ color, size }) => (
