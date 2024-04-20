@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { ChatScreen } from "../screens/Chat";
 import { ProfileScreen } from "../screens/Profile";
-import { SearchScreen } from "../screens/Search";
 import { SearchStackNavigation } from "./StackNavigations";
 
 type TabParamList = {
