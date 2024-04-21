@@ -22,7 +22,7 @@ export function TabNavigation() {
         headerShown: false,
         tabBarStyle: {
           height: 60 + bottom,
-          paddingBottom: bottom,
+          paddingBottom: bottom + 10,
           paddingTop: 5,
         },
       }}

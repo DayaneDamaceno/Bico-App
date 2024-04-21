@@ -1,61 +1,73 @@
 import {
   ActivityIndicator,
-  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "./styles";
-import { PrestadoresMaisProximosScreen } from "../PrestadoresMaisProximos";
-import { useEffect, useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigations/StackNavigations";
 import { useQuery } from "react-query";
-import { obterHabilidadesBusca } from "../../api/ApiService";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import CategoriaItem from "../../components/CategoriaItem";
+import { obterCategorias } from "../../api/ApiService";
+import { Ionicons } from "@expo/vector-icons";
+import { useKeyboardOffset } from "../../hooks/useKeyboardOffset";
+import { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type CategoriasScreenNavigationProp = StackNavigationProp<
+type CategoriasScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "Categorias"
 >;
-
-type CategoriasScreenProps = {
-  navigation: CategoriasScreenNavigationProp;
-};
-export function CategoriasScreen(props: CategoriasScreenProps) {
-  const [busca, setBusca] = useState('');
-  const { isLoading, data } = useQuery("habilidades-busca", () =>
-    obterHabilidadesBusca(busca)
+export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
+  const [textoBusca, setTextoBusca] = useState("");
+  const { keyboardOffset } = useKeyboardOffset();
+  const { isLoading, data: categorias } = useQuery(
+    "categorias",
+    obterCategorias
   );
 
-  async function Buscar(textoBusca: string) {
-    setBusca(textoBusca)
-    console.log(textoBusca)
+  if (isLoading) {
+    return <ActivityIndicator />;
   }
-  useEffect(() => {
-    Buscar(busca);
-  }, [busca]);
+
+  function handleEnterPress(): void {
+    props.navigation.navigate("Habilidades", { textoBusca });
+  }
+
+  function handleCategoriaPress(categoriaId: number): void {
+    props.navigation.navigate("Habilidades", { categoriaId });
+  }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={styles.container_wrapper}>
-        <View style={styles.input_wrapper}>
-          <TouchableOpacity
-            style={styles.lista}
-            onPress={() => props.navigation.navigate("Habilidades", { itens: data })}
-          >
-            <Ionicons name="search" color={"grey"} size={20}
-            />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            value={busca}
-            onChangeText={setBusca}
-            placeholder="O que você precisa?"
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: "white" }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.listaCategorias}>
+        {categorias?.map((item) => (
+          <CategoriaItem
+            key={item.id}
+            item={item}
+            onPress={() => handleCategoriaPress(item.id)}
           />
-        </View>
+        ))}
       </View>
-    </View>
+      <View style={{ ...styles.inputContainer, bottom: keyboardOffset }}>
+        <Ionicons name="search" color={"grey"} size={18} />
+        <TextInput
+          style={styles.textInput}
+          value={textoBusca}
+          onChangeText={setTextoBusca}
+          placeholder="O que você precisa?"
+          onSubmitEditing={handleEnterPress} // Captura o evento de Enter
+          returnKeyType="done" // Configura o tipo de tecla de retorno no iOS
+        />
+      </View>
+    </KeyboardAvoidingView>
   );
 }

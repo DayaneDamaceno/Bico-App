@@ -4,39 +4,36 @@ export const styles = StyleSheet.create({
   lista: {
     flex: 1,
     fontSize: 20,
-
-
   },
-  container_wrapper: {
-    height: "100%",
-    display: "flex",
+  inputContainer: {
+    gap: 12,
+    padding: 10,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
-  },
- 
-  input_wrapper: {
-    alignItems: "flex-start",
-    width:"90%",
-    height: 45,
-    paddingHorizontal: 10,
-    flexDirection:"row",
-    paddingVertical: 11,
-    display: "flex",
-    gap: 6,
+    marginHorizontal: 10,
     backgroundColor: "white",
-    borderColor:"#CBD5E1",
+    textAlign: "left",
+    borderColor: "#CBD5E1",
     borderStyle: "solid",
     borderWidth: 1,
-    elevation: 1,
-    borderRadius: 8,
-    shadowColor: "black",
-    shadowRadius: 5,
-    shadowOffset: { height: 1, width: 1},
-    shadowOpacity: 0.75
+    borderRadius: 6,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    shadowColor: "rgba(0,0,0,0.17)",
+    shadowOffset: { width: 0, height: 14 }, // Deslocamento da sombra
+    shadowOpacity: 1, // Opacidade da sombra
+    shadowRadius: 154, // Raio do desfoque da sombra
+    elevation: 20, // Para Android
   },
-  input: {
-    width: "90%",
-    backgroundColor: "transparent",
-    textAlign:"left",
-  }
+  textInput: {
+    fontSize: 16,
+    width: "100%",
+  },
+  listaCategorias: {
+    gap: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
 });

@@ -8,21 +8,18 @@ import {
 import { styles } from "./styles";
 import { PrestadorItem } from "../../components/PrestadorItem";
 import { usePrestadoresMaisProximos } from "../../hooks/usePrestadoresMaisProximos";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigations/StackNavigations";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type PrestadoresMaisProximosScreenNavigationProp = StackNavigationProp<
+type PrestadoresMaisProximosScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "Prestadores"
 >;
 
-type PrestadoresMaisProximosScreenProps = {
-  navigation: PrestadoresMaisProximosScreenNavigationProp;
-};
-
 export function PrestadoresMaisProximosScreen(
   props: PrestadoresMaisProximosScreenProps
 ) {
+  const { habilidadeId } = props.route.params;
   const {
     prestadores,
     fetchNextPage,
@@ -30,11 +27,11 @@ export function PrestadoresMaisProximosScreen(
     isFetchingNextPage,
     isLoading,
     isFetching,
+    isError,
     refetch,
     remove,
-    isError,
     error,
-  } = usePrestadoresMaisProximos();
+  } = usePrestadoresMaisProximos(habilidadeId);
 
   if (isLoading) {
     return <ActivityIndicator style={{ alignSelf: "center" }} />;

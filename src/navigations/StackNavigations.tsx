@@ -2,13 +2,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PrestadoresMaisProximosScreen } from "../screens/PrestadoresMaisProximos";
 import { HabilidadeScreen } from "../screens/Habilidades";
 import { CategoriasScreen } from "../screens/Categorias";
-import { Habilidade } from "../api/ApiService";
 
 export type RootStackParamList = {
-  Habilidades: { itens?: Habilidade[] };
-  Prestadores: undefined;
   Categorias: undefined;
-  // Prestadores: { itemId: number, otherParam?: string };
+  Habilidades: { categoriaId?: number; textoBusca?: string };
+  Prestadores: { habilidadeId: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
