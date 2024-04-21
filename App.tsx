@@ -1,33 +1,59 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { Categoria } from "./components/Categoria";
+import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
+import Categoria from "./components/Categoria";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { obterCategorias } from "./Services/api";
+import BotaoPersonalizado from "./components/Categoria";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Dayane Wesley e dudu</Text>
-      <Button title="Clique Aqui" />
-      <StatusBar style="auto" />
-      <View style={styles.listaCategorias}>
-        <Categoria icon="icon" nome="Reformas e raparos" />
-        <Categoria nome="nome 2" icon="icon 2" />
-        <Categoria nome="nome 3" icon="icon 3" />
-        <Categoria nome="nome 4" icon="icon 4" />
+    <QueryClientProvider client={queryClient}>
+      <View >
+        <StatusBar style="auto" />
+        <ListaCategorias />
       </View>
-    </View>
+    </QueryClientProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   listaCategorias: {
+    display: 'flex',
     gap: 10,
     flexDirection: "row",
-    // flexWrap: "wrap",
+    borderRadius: 25, // Bordas arredondadas
+    marginHorizontal: 40,
+    overflow: 'hidden', // Garante que o borderRadius seja aplicado corretamente
+    flexWrap: "wrap",
+    margin: 80,
+    backgroundColor: 'green',
   },
+
 });
+
+
+function ListaCategorias(){
+  const {isLoading, data: categorias} = useQuery("Categorias", obterCategorias)
+  if(isLoading){
+    
+    return <ActivityIndicator/>
+  }
+
+  console.log(categorias)
+  return (
+
+      <View >
+        <Text>Buscar</Text>
+        <View style={styles.listaCategorias}>
+          {categorias?.map(
+            item => (
+              <BotaoPersonalizado key={item.id} nome={item.nome}/>
+            )
+          )}
+        </View>
+      </View>
+  );
+
+}
