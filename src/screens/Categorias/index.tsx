@@ -59,13 +59,17 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
     let quntRegistro: number = allKeys.length;
     let ultimaChave: number =  quntRegistro;
 
-    if(quntRegistro >= 5){
-      ultimaChave =  allKeysSort[4];
-      await AsyncStorage.removeItem(allKeysSort[0].toString());
-    }
-    await AsyncStorage.setItem((ultimaChave + 1).toString(), textoBusca);
+    if(allKeys != null){
 
-    listData();
+      if(quntRegistro >= 5){
+        ultimaChave =  allKeysSort[4];
+        await AsyncStorage.removeItem(allKeysSort[0].toString());
+      }
+      await AsyncStorage.setItem((ultimaChave + 1).toString(), textoBusca);
+
+      listData();
+
+    }
   }
 
   interface ValorGuardado {
@@ -79,26 +83,27 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
     let chaveReverse = allKeys.slice().reverse();
     let list: ValorGuardado[] = [];
 
-    for (let chave of chaveReverse) {
-      if (chave !== null) {
-        let valor = await AsyncStorage.getItem(chave);
+    if(allKeys != null){
 
-        if (valor !== null) {
+      for (let chave of chaveReverse) {
+        if (chave !== null) {
+          let valor = await AsyncStorage.getItem(chave);
 
-          let item: ValorGuardado = {
-            chave: parseInt(chave),
-            valor: valor
+          if (valor !== null) {
+
+            let item: ValorGuardado = {
+              chave: parseInt(chave),
+              valor: valor
+            }
+
+            list.push(item);
+        
           }
-
-          list.push(item);
-      
         }
       }
-  }
       setContador(list);
   }
-
-
+}
 
   return (
     <KeyboardAvoidingView
