@@ -20,7 +20,7 @@ import { useKeyboardOffset } from "../../hooks/useKeyboardOffset";
 import { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Entypo, EvilIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 
 type CategoriasScreenProps = NativeStackScreenProps<
@@ -29,6 +29,7 @@ type CategoriasScreenProps = NativeStackScreenProps<
 >;
 export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
   const [textoBusca, setTextoBusca] = useState("");
+  const [contador, setContador] = useState<ValorGuardado[]>();
   const { keyboardOffset } = useKeyboardOffset();
   const { isLoading, data: categorias } = useQuery(
     "categorias",
@@ -62,8 +63,6 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
       ultimaChave =  allKeysSort[4];
       await AsyncStorage.removeItem(allKeysSort[0].toString());
     }
-
-    console.log((ultimaChave + 1).toString(), textoBusca)
     await AsyncStorage.setItem((ultimaChave + 1).toString(), textoBusca);
 
     listData();
@@ -99,7 +98,7 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
       setContador(list);
   }
 
-  const [contador, setContador] = useState<ValorGuardado[]>();
+
 
   return (
     <KeyboardAvoidingView
@@ -126,8 +125,7 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
               style={styles.itemHistoricoArea}
              onPress={handleEnterPress}
             >
-              <EvilIcons name="search" size={18} color="black" style={styles.itemHistoricoIcon}/> 
-              {/*<Entypo name="back-in-time" size={18} color="black" style={styles.itemHistoricoIcon} />*/}
+              <Entypo name="back-in-time" size={18} color="black" style={styles.itemHistoricoIcon} />
               <Text style={styles.itemHistorico}>{item.valor}</Text>
             </TouchableOpacity>
           )}
