@@ -3,6 +3,7 @@ import {
   FlatList,
   Text,
   RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 
 import { styles } from "./styles";
@@ -42,12 +43,25 @@ export function PrestadoresMaisProximosScreen(
     return <Text>Error: {(error as Error).message}</Text>;
   }
 
+  function handleCategoriaPress(prestadorId: number): void {
+    console.log("chegou no onpress");
+    props.navigation.navigate("Perfil", { prestadorId });
+  }
+
+
   return (
     <FlatList
       data={prestadores?.pages.flatMap((page) => page)}
       keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <PrestadorItem item={item} />}
-      style={styles.lista}
+      renderItem={({ item }) => (
+      <TouchableOpacity
+      onPress={() => handleCategoriaPress(item.id)}
+      >
+      <PrestadorItem item={item} />     
+      </TouchableOpacity>
+      
+      )}
+      style={styles.lista}      
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();
       }}

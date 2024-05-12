@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://192.168.0.5:5283",
+  baseURL: "http://10.0.0.118:5283",
 });
 
 export interface Categoria {
@@ -9,16 +9,21 @@ export interface Categoria {
   nome: string;
 }
 
-export const obterCategorias = async (): Promise<Categoria[]> => {
-  const response = await api.get("/v1/categorias");
-  return response.data;
-};
+export interface FotoServico {
+  id: number;
+  foto: string;
+  prestadorId: number;
+}
 
 export interface Prestador {
   id: number;
   nome: string;
   avatarUrl: string;
-  mediaEstrelas: number;
+  mediaEstrelas: number; 
+  sobre: string;
+  habilidades: Habilidade[];
+  raioDeAlcance: number;
+  fotosServico: FotoServico[];
 }
 
 export const obterPrestadoresMaisProximos = async (
@@ -47,5 +52,17 @@ export const obterHabilidadesBusca = async (
   texto?: string
 ): Promise<Habilidade[]> => {
   const response = await api.get(`/v1/habilidades?texto=${texto}`);
+  return response.data;
+};
+export const obterCategorias = async (): Promise<Categoria[]> => {
+  const response = await api.get("/v1/categorias");
+  console.log('API Response:', response.data.nome);
+
+  return response.data;
+};
+
+export const obterPrestador = async (prestadorId?: number): Promise<Prestador[]> => {
+  const response = await api.get(`/v1/prestadores?numero=${prestadorId}`);
+  console.log(response.data)
   return response.data;
 };
