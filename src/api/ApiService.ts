@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://10.0.0.118:5283",
+  baseURL: "http://192.168.243.182:5283",
 });
 
 export interface Categoria {
@@ -15,6 +15,14 @@ export interface FotoServico {
   prestadorId: number;
 }
 
+export interface Avaliacoes {
+  id: number;
+  prestadorId: number;
+  clienteId: number;
+  conteudo: string; 
+  quantidadeEstrelas: number;
+}
+
 export interface Prestador {
   id: number;
   nome: string;
@@ -24,6 +32,7 @@ export interface Prestador {
   habilidades: Habilidade[];
   raioDeAlcance: number;
   fotosServico: FotoServico[];
+  avaliacoes: Avaliacoes[];
 }
 
 export const obterPrestadoresMaisProximos = async (

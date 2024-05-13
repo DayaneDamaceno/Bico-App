@@ -51,7 +51,7 @@ export function PerfilScreen(
         <View style={styles.textoContainer}>
           <Text style={{ fontSize: 25}}>{item.nome}</Text>
           <Text style={{ fontSize: 14, color: '#64748B' }}>Alcance de atuação: {item.raioDeAlcance}m</Text>
-          <Text style={{ marginTop: 5, fontSize: 18}}><Ionicons name="star" color={"gold"} size={18} /> {item.mediaEstrelas} (0)</Text>
+          <Text style={{ marginTop: 5, fontSize: 18}}><Ionicons name="star" color={"gold"} size={18} /> {item.mediaEstrelas} ({item.avaliacoes.length})</Text>
         </View>
       </View>
        )}
