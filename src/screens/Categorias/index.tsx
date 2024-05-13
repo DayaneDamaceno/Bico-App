@@ -1,16 +1,12 @@
 import {
   ActivityIndicator,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "./styles";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigations/StackNavigations";
+import { RootStackParamList } from "../../navigations/SearchStackNavigation";
 import { useQuery } from "react-query";
 import CategoriaItem from "../../components/CategoriaItem";
 import { obterCategorias } from "../../api/ApiService";

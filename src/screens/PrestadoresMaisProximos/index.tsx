@@ -8,7 +8,7 @@ import {
 import { styles } from "./styles";
 import { PrestadorItem } from "../../components/PrestadorItem";
 import { usePrestadoresMaisProximos } from "../../hooks/usePrestadoresMaisProximos";
-import { RootStackParamList } from "../../navigations/StackNavigations";
+import { RootStackParamList } from "../../navigations/SearchStackNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type PrestadoresMaisProximosScreenProps = NativeStackScreenProps<

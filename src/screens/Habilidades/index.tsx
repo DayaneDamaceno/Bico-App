@@ -8,7 +8,7 @@ import {
 import { useQuery } from "react-query";
 import { obterHabilidades, obterHabilidadesBusca } from "../../api/ApiService";
 import { styles } from "./styles";
-import { RootStackParamList } from "../../navigations/StackNavigations";
+import { RootStackParamList } from "../../navigations/SearchStackNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type HabilidadesScreenProps = NativeStackScreenProps<
