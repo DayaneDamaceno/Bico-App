@@ -38,42 +38,34 @@ export const styles = StyleSheet.create({
   },
   historicoPesquisa: {
     paddingHorizontal: 15,
-    marginTop:12,
-    marginBottom:12,
-    //backgroundColor: '#7C3AED',
-    width:"100%",
-    
+    marginTop: 12,
+    marginBottom: 12,
+    width: "100%",
   },
   historicoPesquisaTexto: {
     fontSize: 16,
-    //backgroundColor: '#7C385D',
-    height:50,
-    paddingTop: 15
+    height: 50,
+    paddingTop: 15,
   },
-  listaHistorico:{
-    width:"100%",
-    //borderTopWidth: 1.5, // Border width
-    //borderTopColor: "#E2E8F0",
+  listaHistorico: {
+    width: "100%",
   },
-  itemHistoricoArea:{
-    width:"100%",
-    flexDirection: 'row',
-    gap:5,
+  itemHistoricoArea: {
+    width: "100%",
+    flexDirection: "row",
+    gap: 5,
     height: 40,
-    paddingTop:9,
-    //backgroundColor: '#7C385D',
-    //borderBottomWidth: 1.5, // Border width
-    //borderBottomColor: "#E2E8F0",
-    
+    paddingTop: 9,
+    alignItems: "center",
   },
-  itemHistoricoIcon:{
+  itemHistoricoIcon: {
     flexDirection: "row",
-    color: '#475569',
-    paddingTop:2
+    color: "#475569",
+    paddingTop: 2,
   },
-  itemHistorico:{
+  itemHistorico: {
     flexDirection: "row",
-    fontSize:14,
-    color: '#475569'
-  }
+    fontSize: 14,
+    color: "#475569",
+  },
 });
