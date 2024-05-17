@@ -1,8 +1,28 @@
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const api = axios.create({
-  baseURL: "http://192.168.0.5:5283",
+  baseURL: "http://192.168.169.219:5283",
 });
+
+export interface Login {
+  email: string;
+  senha: string;
+}
+
+export const fazerLogin = async (emailParametro: string, senhaParametro:string) => {
+  var login: Login = {
+    email: emailParametro,
+    senha: senhaParametro
+  }
+  const response = await api.post("/v1/autenticacao/login", login);
+  if(response.status >= 200 && response.status < 300){
+      await AsyncStorage.setItem("token", response.data.token);
+      return true;
+    }
+
+  return false;
+};
 
 export interface Categoria {
   id: number;
