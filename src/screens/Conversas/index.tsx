@@ -15,11 +15,7 @@ type ConversasScreenProps = NativeStackScreenProps<
 export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
   const { user, login } = useAuth();
 
-  const {
-    isLoading,
-    data: conversasRecentes,
-    refetch,
-  } = useQuery(
+  const { isLoading, data: conversasRecentes } = useQuery(
     `conversas-recentes`,
     async () => await obterConversasRecentes(user?.id ?? 0)
   );
@@ -29,31 +25,9 @@ export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
       style={{
         flex: 1,
         width: "100%",
-        // alignItems: "center",
-        // paddingHorizontal: 40,
-        // paddingVertical: 20,
       }}
     >
-      <TouchableOpacity
-        style={{ backgroundColor: "red", padding: 10 }}
-        onPress={() => {
-          login(1);
-          refetch();
-        }}
-      >
-        <Text>Usuario 1 - Duarte</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{ backgroundColor: "blue", padding: 10 }}
-        onPress={() => {
-          login(4);
-          refetch();
-        }}
-      >
-        <Text>Usuario 4 - Dayane</Text>
-      </TouchableOpacity>
-
-      {user?.id && (
+      {!isLoading && (
         <FlatList
           style={styles.list}
           data={conversasRecentes}

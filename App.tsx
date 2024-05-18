@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./src/contexts/AuthContext";
+import { AppNavigation } from "./src/navigations/AppNavigation";
 
 const queryClient = new QueryClient();
 
@@ -13,10 +14,8 @@ export default function App() {
     <SafeAreaProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
-            <StatusBar style="auto" />
-            <TabNavigation />
-          </NavigationContainer>
+          <StatusBar style="auto" />
+          <AppNavigation />
         </QueryClientProvider>
       </AuthProvider>
     </SafeAreaProvider>

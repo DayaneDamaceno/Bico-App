@@ -1,8 +1,34 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
-  baseURL: "http://192.168.0.17:5283",
+  baseURL: "http://192.168.0.8:5283",
 });
+
+api.interceptors.request.use(
+  async (config) => {
+    const token = await AsyncStorage.getItem("userToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    // Fazer algo com erro de requisição
+    return error;
+  }
+);
+
+export const obterToken = async (
+  email: string,
+  senha: string
+): Promise<{ id: number; token: string }> => {
+  const response = await api.post("/v1/autenticacao/login", {
+    email,
+    senha,
+  });
+  return response.data;
+};
 
 export interface Categoria {
   id: number;

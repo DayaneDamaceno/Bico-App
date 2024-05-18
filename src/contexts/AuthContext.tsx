@@ -5,7 +5,8 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { GetAuth } from "../api/helpers/AuthHelper";
+import { obterToken } from "../api/ApiService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type UserType = {
   id: number;
@@ -14,8 +15,7 @@ type UserType = {
 
 type AuthContextType = {
   user: UserType;
-  login: (id: number) => void;
-  //   login: (username: string, password: string) => void;
+  login: (email: string, senha: string) => void;
   logout: () => void;
   loading: boolean;
 };
@@ -37,11 +37,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<UserType>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  //   const login = (username: string, password: string) => {
-  const login = (id: number) => {
-    // Implemente aqui a lógica de autenticação
-    const fakeUser = { id, token: GetAuth(id) };
-    setUser(fakeUser);
+  const login = async (email: string, senha: string) => {
+    const { id, token } = await obterToken(email, senha);
+    await AsyncStorage.setItem("userToken", token);
+    setUser({ id, token });
     setLoading(false);
   };
 
@@ -50,7 +49,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   useEffect(() => {
-    // Implemente a lógica para verificar um token salvo e carregar dados do usuário
     setLoading(false);
   }, []);
 

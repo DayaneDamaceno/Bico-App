@@ -5,11 +5,6 @@ import React, { useEffect, useState } from "react";
 import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import { SpeechBubble } from "../../components/SpeechBubble";
 import {
-  HubConnection,
-  HubConnectionBuilder,
-  LogLevel,
-} from "@microsoft/signalr";
-import {
   Mensagem,
   enviarMensagem,
   obterMensagemDeUmaConversa,

@@ -22,7 +22,7 @@ export function useChatConnection({
   useEffect(() => {
     if (user?.token) {
       const newConnection = new HubConnectionBuilder()
-        .withUrl(`http://192.168.0.17:5283/hub/chat`, {
+        .withUrl(`http://192.168.0.8:5283/hub/chat`, {
           accessTokenFactory: () => user.token,
         })
         .configureLogging(LogLevel.Information)
@@ -49,6 +49,4 @@ export function useChatConnection({
       connection?.stop();
     };
   }, [user?.token]);
-
-  return;
 }
