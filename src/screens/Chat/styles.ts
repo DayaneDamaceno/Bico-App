@@ -40,7 +40,9 @@ export const styles = StyleSheet.create({
   btnAction: { paddingHorizontal: 6 },
   footer: {
     flexDirection: "row",
-    gap: 6,
+    gap: 8,
     alignItems: "center",
+    marginBottom: 24,
+    paddingHorizontal: 10,
   },
 });

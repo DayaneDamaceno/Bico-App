@@ -1,7 +1,14 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View, FlatList, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { styles } from "./styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import { SpeechBubble } from "../../components/SpeechBubble";
 import {
@@ -13,6 +20,9 @@ import { RootStackParamList } from "../../navigations/ChatStackNavigation";
 import { useAuth } from "../../contexts/AuthContext";
 import { useQuery } from "react-query";
 import { useChatConnection } from "../../hooks/useChatConnection";
+import { useIsFocused } from "@react-navigation/native";
+import { useHideTabBar } from "../../hooks/useHideTabBar";
+import { useKeyboardOffset } from "../../hooks/useKeyboardOffset";
 
 type ChatScreenProps = NativeStackScreenProps<RootStackParamList, "Chat">;
 
@@ -22,6 +32,8 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   const [mensagens, setMensagens] = useState<Mensagem[]>([]);
   const [message, setMessage] = useState("");
   const [sendIsEnabled, setSendIsEnabled] = useState(false);
+  const { keyboardIsVisible } = useKeyboardOffset();
+  useHideTabBar(props.navigation);
 
   useChatConnection({
     onNewMessage: (messageReceived) => {
@@ -77,7 +89,10 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <FlatList
         data={mensagens}
         keyExtractor={(item) => item.id.toString()}
@@ -91,7 +106,9 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
         )}
       />
 
-      <View style={styles.footer}>
+      <View
+        style={[styles.footer, { marginBottom: keyboardIsVisible ? 110 : 24 }]}
+      >
         <TouchableOpacity style={styles.plusButton}>
           <Feather name="plus" size={30} color="#FFF" />
         </TouchableOpacity>
@@ -119,6 +136,6 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
           <Ionicons name="send" size={20} color="#FFF" />
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
