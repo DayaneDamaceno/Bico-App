@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 type UseChatConnectionProps = {
   onNewMessage: (message: Mensagem) => void;
-  onReadMessage: (messageId: number) => void;
+  onReadMessage: (messagesIds: number[]) => void;
 };
 
 export function useChatConnection({
@@ -36,19 +36,17 @@ export function useChatConnection({
         .catch((err) => console.error("Connection failed: ", err));
 
       connection.on("ReceiveMessage", (message: Mensagem) => {
-        console.log("Received message: ", message);
         onNewMessage({
           ...message,
-          id: Date.now() + Math.random(),
           enviadoEm: new Date(message.enviadoEm),
         });
       });
 
-      connection.on("ReceiveReadingUpdate", (messageId) => {
+      connection.on("ReceiveReadingUpdate", (messagesIds) => {
         console.log(
-          `Message with ID ${messageId} send by ${user.id} has been read.`
+          `Message with IDs ${messagesIds} send by ${user.id} has been read.`
         );
-        onReadMessage(messageId);
+        onReadMessage(messagesIds);
       });
 
       setConnection(connection);

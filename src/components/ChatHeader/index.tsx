@@ -13,10 +13,10 @@ interface ChatHeaderProps {
 }
 export default function ChatHeader(props: Readonly<ChatHeaderProps>) {
   const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: top }]}>
       <TouchableOpacity
         style={styles.btnBack}
         onPress={() => navigation.goBack()}

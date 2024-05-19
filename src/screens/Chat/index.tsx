@@ -14,6 +14,7 @@ import { SpeechBubble } from "../../components/SpeechBubble";
 import {
   Mensagem,
   enviarMensagem,
+  marcarMensagensComoLida,
   obterMensagemDeUmaConversa,
 } from "../../api/ApiService";
 import { RootStackParamList } from "../../navigations/ChatStackNavigation";
@@ -33,16 +34,34 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   const [message, setMessage] = useState("");
   const [sendIsEnabled, setSendIsEnabled] = useState(false);
   const { keyboardIsVisible } = useKeyboardOffset();
+  const isFocused = useIsFocused();
   useHideTabBar(props.navigation);
+
+  useEffect(() => {
+    const unreadMessages = mensagens
+      .filter((x) => !x.mensagemLida && x.remetenteId != user?.id)
+      .map((x) => x.id);
+    if (isFocused && unreadMessages.length > 0) {
+      console.log("unread", unreadMessages);
+      marcarMensagensComoLida(unreadMessages);
+      setMensagens((prevMessages) =>
+        prevMessages.map((message) =>
+          unreadMessages.includes(message.id)
+            ? { ...message, mensagemLida: true }
+            : message
+        )
+      );
+    }
+  }, [isFocused, mensagens]);
 
   useChatConnection({
     onNewMessage: (messageReceived) => {
       setMensagens((prevState) => [messageReceived, ...prevState]);
     },
-    onReadMessage: (messageId) => {
+    onReadMessage: (messagesIds) => {
       setMensagens((prevMessages) =>
         prevMessages.map((message) =>
-          message.id === messageId
+          messagesIds.includes(message.id)
             ? { ...message, mensagemLida: true }
             : message
         )
@@ -63,7 +82,7 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   async function sendMessage() {
     if (message.trim().length > 0) {
       const newMessage: Mensagem = {
-        id: Date.now() + Math.random(),
+        id: mensagens[0].id + 1,
         remetenteId: user!.id,
         destinatarioId: friendId,
         conteudo: message,
@@ -90,7 +109,7 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
       style={styles.container}
     >
       <FlatList
@@ -107,7 +126,13 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
       />
 
       <View
-        style={[styles.footer, { marginBottom: keyboardIsVisible ? 110 : 24 }]}
+        style={[
+          styles.footer,
+          {
+            marginBottom: keyboardIsVisible ? 86 : 0,
+            paddingBottom: Platform.OS === "ios" ? 28 : 0,
+          },
+        ]}
       >
         <TouchableOpacity style={styles.plusButton}>
           <Feather name="plus" size={30} color="#FFF" />

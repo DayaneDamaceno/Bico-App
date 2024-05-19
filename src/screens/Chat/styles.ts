@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F5F9",
     paddingHorizontal: 10,
-    paddingVertical: 16,
+    paddingVertical: 20,
   },
   plusButton: {
     height: 50,
@@ -42,7 +42,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     alignItems: "center",
-    marginBottom: 24,
     paddingHorizontal: 10,
   },
 });

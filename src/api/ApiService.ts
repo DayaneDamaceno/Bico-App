@@ -125,3 +125,10 @@ export const obterConversasRecentes = async (
   );
   return response.data;
 };
+
+export const marcarMensagensComoLida = async (mensagemIds: number[]) => {
+  const response = await api.patch(`/v1/chat/mensagens/ler`, {
+    mensagemIds,
+  });
+  return response.data;
+};
