@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     marginRight: 18,
     alignSelf: "flex-end",
     alignItems: "flex-end",
+    gap: 4,
     marginBottom: 8,
   },
   friendBubbleContainer: {
@@ -12,6 +13,7 @@ export const styles = StyleSheet.create({
     alignItems: "flex-start",
     alignSelf: "flex-start",
     marginBottom: 8,
+    gap: 4,
   },
   bubble: {
     position: "relative",
@@ -73,7 +75,8 @@ export const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: "row",
-    gap: 8,
+    alignItems: "center",
+    gap: 4,
   },
   myFooter: {
     justifyContent: "flex-end",

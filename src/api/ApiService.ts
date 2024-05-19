@@ -114,6 +114,7 @@ export interface ConversaRecente {
   avatarUrl: string;
   ultimaMensagem: string;
   dataUltimaMensagem: Date;
+  quantidadeMensagensNaoLidas: number;
 }
 
 export const obterConversasRecentes = async (

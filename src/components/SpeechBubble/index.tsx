@@ -37,10 +37,10 @@ export function SpeechBubble({ item, isMy }: Readonly<SpeechBubbleProps>) {
       <View
         style={[styles.footer, isMy ? styles.myFooter : styles.friendFooter]}
       >
-        {item.mensagemLida && (
-          <Ionicons name="checkmark-done" size={16} color="#007AF8" />
+        {item.mensagemLida && isMy && (
+          <Ionicons name="checkmark-done" size={14} color="#007AF8" />
         )}
-        <Text style={(styles.hour, isMy ? styles.myHour : styles.friendHour)}>
+        <Text style={[styles.hour, isMy ? styles.myHour : styles.friendHour]}>
           {formatTime(item.enviadoEm)}
         </Text>
       </View>

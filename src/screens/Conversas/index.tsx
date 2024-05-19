@@ -13,7 +13,7 @@ type ConversasScreenProps = NativeStackScreenProps<
   "Conversas"
 >;
 export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
-  const { user, login } = useAuth();
+  const { user } = useAuth();
 
   const { isLoading, data: conversasRecentes } = useQuery(
     `conversas-recentes`,
@@ -49,9 +49,13 @@ export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
                     <Text style={styles.time}>
                       {formatTime(new Date(item.dataUltimaMensagem))}
                     </Text>
-                    <View style={styles.amountNotification}>
-                      <Text style={styles.amountNotificationText}>1</Text>
-                    </View>
+                    {item.quantidadeMensagensNaoLidas > 0 && (
+                      <View style={styles.amountNotification}>
+                        <Text style={styles.amountNotificationText}>
+                          {item.quantidadeMensagensNaoLidas}
+                        </Text>
+                      </View>
+                    )}
                   </View>
                 </View>
                 <Text
