@@ -1,8 +1,9 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const api = axios.create({
-  baseURL: "http://192.168.0.8:5283",
+  baseURL: apiUrl,
 });
 
 api.interceptors.request.use(
@@ -82,6 +83,7 @@ export interface Mensagem {
   destinatarioId: number;
   conteudo: string;
   enviadoEm: Date;
+  mensagemLida: boolean;
 }
 
 export const enviarMensagem = async (mensagem?: Mensagem): Promise<void> => {

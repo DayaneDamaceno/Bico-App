@@ -4,10 +4,12 @@ export const styles = StyleSheet.create({
   myBubbleContainer: {
     marginRight: 18,
     alignSelf: "flex-end",
+    alignItems: "flex-end",
     marginBottom: 8,
   },
   friendBubbleContainer: {
     marginLeft: 18,
+    alignItems: "flex-start",
     alignSelf: "flex-start",
     marginBottom: 8,
   },
@@ -68,5 +70,15 @@ export const styles = StyleSheet.create({
   },
   friendHour: {
     textAlign: "left",
+  },
+  footer: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  myFooter: {
+    justifyContent: "flex-end",
+  },
+  friendFooter: {
+    justifyContent: "flex-start",
   },
 });

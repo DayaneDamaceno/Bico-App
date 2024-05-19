@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, FlatList, TextInput, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import { SpeechBubble } from "../../components/SpeechBubble";
 import {
@@ -24,9 +24,17 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   const [sendIsEnabled, setSendIsEnabled] = useState(false);
 
   useChatConnection({
-    friendId,
     onNewMessage: (messageReceived) => {
       setMensagens((prevState) => [messageReceived, ...prevState]);
+    },
+    onReadMessage: (messageId) => {
+      setMensagens((prevMessages) =>
+        prevMessages.map((message) =>
+          message.id === messageId
+            ? { ...message, mensagemLida: true }
+            : message
+        )
+      );
     },
   });
 
@@ -48,6 +56,7 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
         destinatarioId: friendId,
         conteudo: message,
         enviadoEm: new Date(Date.now()),
+        mensagemLida: false,
       };
 
       setMensagens((prevState) => [newMessage, ...prevState]);

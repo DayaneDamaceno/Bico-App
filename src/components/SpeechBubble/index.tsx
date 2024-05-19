@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import { styles } from "./styles";
 import { Mensagem } from "../../api/ApiService";
 import { formatTime } from "../../api/helpers/DateHelper";
+import { Ionicons } from "@expo/vector-icons";
+
 interface SpeechBubbleProps {
   isMy: boolean;
   item: Mensagem;
@@ -32,9 +34,16 @@ export function SpeechBubble({ item, isMy }: Readonly<SpeechBubbleProps>) {
           {item.conteudo}
         </Text>
       </View>
-      <Text style={(styles.hour, isMy ? styles.myHour : styles.friendHour)}>
-        {formatTime(item.enviadoEm)}
-      </Text>
+      <View
+        style={[styles.footer, isMy ? styles.myFooter : styles.friendFooter]}
+      >
+        {item.mensagemLida && (
+          <Ionicons name="checkmark-done" size={16} color="#007AF8" />
+        )}
+        <Text style={(styles.hour, isMy ? styles.myHour : styles.friendHour)}>
+          {formatTime(item.enviadoEm)}
+        </Text>
+      </View>
     </View>
   );
 }
