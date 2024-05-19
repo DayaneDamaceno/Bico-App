@@ -38,6 +38,9 @@ export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
               onPress={() =>
                 props.navigation.navigate("Chat", {
                   friendId: item.id,
+                  avatarUrl: item.avatarUrl,
+                  name: item.nome,
+                  isOnline: false,
                 })
               }
             >
