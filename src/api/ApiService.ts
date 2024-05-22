@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://192.168.243.182:5283",
+  baseURL: "http://192.168.0.60:5283",
 });
 
 export interface Categoria {

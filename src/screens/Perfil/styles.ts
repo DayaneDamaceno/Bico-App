@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 25,
-    paddingTop: 25,
+    paddingTop: 20,
     backgroundColor: "white",
   },
   header:{
+    paddingLeft: 10,
     alignItems: 'flex-start',
     flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
    },
@@ -17,6 +17,11 @@ export const styles = StyleSheet.create({
     borderRadius: 100, // metade da largura/altura para fazer um círculo
     overflow: 'hidden', // para garantir que a imagem seja cortada para caber no círculo   
     resizeMode: 'cover', // ou outro modo de redimensionamento que desejar
+  },
+  tabView:{  
+  paddingLeft: 20,
+  paddingTop: 10,
+  paddingRight: 20,
   },
   imagensContainer: {
     flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
@@ -37,7 +42,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row', // Itens ficarão em uma linha
   },
   fotosServico:{
+    fontSize: 18,
     marginTop: 10,
+    paddingLeft: 20,
+    paddingBottom: 20,
   },
   habilidades:{
    
