@@ -7,13 +7,34 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   header:{
-    paddingLeft: 10,
+    paddingLeft: 8,
     alignItems: 'flex-start',
     flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
+   },
+   avaliacaoConteudo:{
+    paddingLeft: 0,
+    alignItems: 'flex-start',
+    flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
+    paddingBottom: 10,
+   },
+   headerAvaliacao:{
+    alignItems: 'center',
+    flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
+    justifyContent: 'center', // Alinha os itens horizontalmente ao centro
+    paddingBottom: 10,
    },
   imagemPerfil:{
     width: 80,
     height: 80,
+    borderRadius: 100, // metade da largura/altura para fazer um círculo
+    overflow: 'hidden', // para garantir que a imagem seja cortada para caber no círculo   
+    resizeMode: 'cover', // ou outro modo de redimensionamento que desejar
+  },
+  imagemAvaliacao:{
+    marginTop: 5,
+    marginLeft: 0,
+    width: 35,
+    height: 35,
     borderRadius: 100, // metade da largura/altura para fazer um círculo
     overflow: 'hidden', // para garantir que a imagem seja cortada para caber no círculo   
     resizeMode: 'cover', // ou outro modo de redimensionamento que desejar
@@ -38,6 +59,11 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     flexDirection: 'column', // Textos ficarão em uma coluna
   },
+  textoAvaliacao: {
+    paddingTop: 7,
+    marginLeft: 10,
+    flexDirection: 'column', // Textos ficarão em uma coluna
+  },
   imagemContainer: {
     flexDirection: 'row', // Itens ficarão em uma linha
   },
@@ -46,10 +72,36 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: 20,
     paddingBottom: 20,
+  },  
+  starContainer: {
+    flexDirection: 'row', // As estrelas serão dispostas em uma linha horizontal
+    alignItems: 'center', // Alinha o texto e as estrelas verticalmente
   },
-  habilidades:{
-   
+  star: {
+    marginHorizontal: 2, // Ajuste o espaço entre as estrelas conforme necessário
   },
+  halfStarContainer: {
+    position: 'relative',
+    width: 30, // Deve ser igual ao tamanho das estrelas
+    height: 30, // Deve ser igual ao tamanho das estrelas
+  },
+  fullStar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 15, // Metade da largura
+    overflow: 'hidden',
+  },
+  halfStar: {
+    position: 'absolute',
+    top: 0,
+    left: 15, // Metade da largura
+    width: 15, // Metade da largura
+  },
+  label: {
+    marginRight: 10, // Espaço entre o texto e as estrelas
+    fontSize: 18, // Tamanho da fonte do texto
+  },  
   inputContainer: {
     marginRight: 10, // espaçamento entre as imagens
     gap: 12,

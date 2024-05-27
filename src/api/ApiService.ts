@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Double } from "react-native/Libraries/Types/CodegenTypes";
 
 const api = axios.create({
   baseURL: "http://192.168.0.60:5283",
@@ -17,17 +18,17 @@ export interface FotoServico {
 
 export interface Avaliacoes {
   id: number;
-  prestadorId: number;
-  clienteId: number;
   conteudo: string; 
-  quantidadeEstrelas: number;
+  quantidadeEstrelas: Double;
+  clienteNome: string;
+  avatarUrl: string;
 }
 
 export interface Prestador {
   id: number;
   nome: string;
   avatarUrl: string;
-  mediaEstrelas: number; 
+  mediaEstrelas: Double; 
   sobre: string;
   habilidades: Habilidade[];
   raioDeAlcance: number;
