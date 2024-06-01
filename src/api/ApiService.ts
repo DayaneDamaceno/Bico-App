@@ -24,6 +24,7 @@ export interface Avaliacoes {
   avatarUrl: string;
 }
 
+
 export interface Prestador {
   id: number;
   nome: string;
@@ -73,6 +74,32 @@ export const obterCategorias = async (): Promise<Categoria[]> => {
 
 export const obterPrestador = async (prestadorId?: number): Promise<Prestador[]> => {
   const response = await api.get(`/v1/prestadores?numero=${prestadorId}`);
-  console.log(response.data)
+  return response.data;
+};
+export interface Usuario {
+  id: number;
+  nome: string;
+  avatarUrl: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  localizacao: string;
+}
+
+export const obterUsuario = async (id: number): Promise<Usuario> => {
+  try {
+    const response = await api.get(`/v1/usuarios?id=${id}`);
+    if (response.data && response.data.length > 0) {
+      return response.data[0];
+    } else {
+      throw console;
+    }
+  } catch (error) {
+    throw console;
+  }
+};
+
+export const postAlteraPerfilCliente = async (usuario: Usuario): Promise<Usuario> => {
+  const response = await api.post('/v1/usuarios/altera', usuario);
   return response.data;
 };
