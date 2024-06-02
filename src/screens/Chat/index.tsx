@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Text,
+  ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import { SpeechBubble } from "../../components/SpeechBubble";
 import {
@@ -21,7 +23,7 @@ import { RootStackParamList } from "../../navigations/ChatStackNavigation";
 import { useAuth } from "../../contexts/AuthContext";
 import { useQuery } from "react-query";
 import { useChatConnection } from "../../hooks/useChatConnection";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useHideTabBar } from "../../hooks/useHideTabBar";
 import { useKeyboardOffset } from "../../hooks/useKeyboardOffset";
 
@@ -33,8 +35,10 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
   const [mensagens, setMensagens] = useState<Mensagem[]>([]);
   const [message, setMessage] = useState("");
   const [sendIsEnabled, setSendIsEnabled] = useState(false);
+  const [actionIsVisible, setActionIsVisible] = useState(false);
   const { keyboardIsVisible } = useKeyboardOffset();
   const isFocused = useIsFocused();
+  const wasFocused = useRef(false);
   useHideTabBar(props.navigation);
 
   useEffect(() => {
@@ -52,7 +56,18 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
         )
       );
     }
+    if (isFocused) {
+      refetch();
+      setActionIsVisible(false);
+    }
   }, [isFocused, mensagens]);
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+      setActionIsVisible(false);
+    }
+  }, [isFocused]);
 
   useChatConnection({
     onNewMessage: (messageReceived) => {
@@ -67,9 +82,16 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
         )
       );
     },
+    onUpdateAcordo: (acordo) => {
+      setMensagens((prevMessages) =>
+        prevMessages.map((message) =>
+          acordo.mensagemId == message.id ? { ...message, acordo } : message
+        )
+      );
+    },
   });
 
-  const { isLoading } = useQuery(
+  const { isLoading, refetch } = useQuery(
     `conversa_${user?.id}_${friendId}`,
     async () => await obterMensagemDeUmaConversa(user?.id ?? 0, friendId),
     {
@@ -124,6 +146,7 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
           />
         )}
       />
+      {isLoading && <ActivityIndicator />}
 
       <View
         style={[
@@ -134,7 +157,10 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
           },
         ]}
       >
-        <TouchableOpacity style={styles.plusButton}>
+        <TouchableOpacity
+          style={styles.plusButton}
+          onPress={() => setActionIsVisible((prev) => !prev)}
+        >
           <Feather name="plus" size={30} color="#FFF" />
         </TouchableOpacity>
         <TextInput
@@ -161,6 +187,22 @@ export function ChatScreen(props: Readonly<ChatScreenProps>) {
           <Ionicons name="send" size={20} color="#FFF" />
         </TouchableOpacity>
       </View>
+      {actionIsVisible && (
+        <View
+          style={[
+            styles.actions,
+            { paddingBottom: Platform.OS === "ios" ? 28 : 0 },
+          ]}
+        >
+          <TouchableOpacity
+            style={styles.action}
+            onPress={() => props.navigation.navigate("Acordo", { friendId })}
+          >
+            <FontAwesome name="handshake-o" size={24} color="#007AF8" />
+            <Text style={styles.actionText}>Acordo</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </KeyboardAvoidingView>
   );
 }

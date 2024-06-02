@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     position: "relative",
     width: "80%",
     borderRadius: 8,
+    gap: 12,
     padding: 10,
   },
   myBubble: {
@@ -83,5 +84,46 @@ export const styles = StyleSheet.create({
   },
   friendFooter: {
     justifyContent: "flex-start",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  myTitle: {
+    color: "#FFF",
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  myPrice: {
+    color: "#FFF",
+  },
+  optionsAcordo: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  btnText: {
+    color: "#FFF",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  aceitar: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    backgroundColor: "#22C55E",
+    borderRadius: 5,
+    gap: 8,
+  },
+  recusar: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    backgroundColor: "#F63B3B",
+    borderRadius: 5,
+    gap: 8,
   },
 });

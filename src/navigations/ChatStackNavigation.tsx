@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ConversasScreen } from "../screens/Conversas";
 import { ChatScreen } from "../screens/Chat";
 import ChatHeader from "../components/ChatHeader";
+import { AcordoScreen } from "../screens/Acordo";
 
 export type RootStackParamList = {
   Conversas: undefined;
@@ -10,6 +11,9 @@ export type RootStackParamList = {
     name: string;
     avatarUrl: string;
     isOnline: boolean;
+  };
+  Acordo: {
+    friendId: number;
   };
 };
 
@@ -36,6 +40,8 @@ export function ChatStackNavigation() {
           ),
         })}
       />
+
+      <Stack.Screen name="Acordo" component={AcordoScreen} />
     </Stack.Navigator>
   );
 }

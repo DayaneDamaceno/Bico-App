@@ -50,7 +50,7 @@ export function ConversasScreen(props: Readonly<ConversasScreenProps>) {
                   <Text style={styles.name}>{item.nome}</Text>
                   <View style={styles.detail}>
                     <Text style={styles.time}>
-                      {formatTime(new Date(item.dataUltimaMensagem))}
+                      {formatTime(item.dataUltimaMensagem)}
                     </Text>
                     {item.quantidadeMensagensNaoLidas > 0 && (
                       <View style={styles.amountNotification}>

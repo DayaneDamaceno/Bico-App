@@ -1,6 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+// const apiUrl = "https://bico-api-hml.azurewebsites.net";
 
 const api = axios.create({
   baseURL: apiUrl,
@@ -77,6 +78,38 @@ export const obterHabilidadesBusca = async (
   return response.data;
 };
 
+export interface Acordo {
+  id: number;
+  mensagemId: number;
+  descricao: string;
+  valor: number;
+  resposta: boolean;
+  respondidoEm: Date;
+}
+
+export const criarAcordo = async (
+  remetenteId: number,
+  destinatarioId: number,
+  descricao: string,
+  valor: number
+): Promise<void> => {
+  const response = await api.post(`/v1/acordos`, {
+    remetenteId,
+    destinatarioId,
+    descricao,
+    valor,
+  });
+  return response.data;
+};
+
+export const responderAcordo = async (
+  id: number,
+  aceito: boolean
+): Promise<void> => {
+  const response = await api.patch(`/v1/acordos/${id}/${aceito}`);
+  return response.data;
+};
+
 export interface Mensagem {
   id: number;
   remetenteId: number;
@@ -84,6 +117,7 @@ export interface Mensagem {
   conteudo: string;
   enviadoEm: Date;
   mensagemLida: boolean;
+  acordo?: Acordo;
 }
 
 export const enviarMensagem = async (mensagem?: Mensagem): Promise<void> => {
@@ -102,9 +136,7 @@ export const obterMensagemDeUmaConversa = async (
   const response = await api.get<Mensagem[]>(
     `/v1/chat/conversa/${userId}/${friendId}`
   );
-  const mensagens = response.data
-    .reverse()
-    .map((item) => ({ ...item, enviadoEm: new Date(item.enviadoEm) }));
+  const mensagens = response.data.reverse().map((item) => ({ ...item }));
   return mensagens;
 };
 

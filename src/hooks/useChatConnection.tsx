@@ -4,22 +4,25 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from "@microsoft/signalr";
-import { Mensagem } from "../api/ApiService";
+import { Acordo, Mensagem } from "../api/ApiService";
 import { useAuth } from "../contexts/AuthContext";
 
 type UseChatConnectionProps = {
   onNewMessage: (message: Mensagem) => void;
   onReadMessage: (messagesIds: number[]) => void;
+  onUpdateAcordo: (acordo: Acordo) => void;
 };
 
 export function useChatConnection({
   onNewMessage,
   onReadMessage,
+  onUpdateAcordo,
 }: UseChatConnectionProps) {
   const { user } = useAuth();
   const [connection, setConnection] = useState<HubConnection | null>(null);
 
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  // const apiUrl = "https://bico-api-hml.azurewebsites.net";
 
   useEffect(() => {
     if (user?.token) {
@@ -35,18 +38,16 @@ export function useChatConnection({
         .then(() => console.log("Connected!"))
         .catch((err) => console.error("Connection failed: ", err));
 
-      connection.on("ReceiveMessage", (message: Mensagem) => {
-        onNewMessage({
-          ...message,
-          enviadoEm: new Date(message.enviadoEm),
-        });
+      connection.on("ReceiveMessage", (message) => {
+        onNewMessage(message);
       });
 
       connection.on("ReceiveReadingUpdate", (messagesIds) => {
-        console.log(
-          `Message with IDs ${messagesIds} send by ${user.id} has been read.`
-        );
         onReadMessage(messagesIds);
+      });
+
+      connection.on("UpdateAcordo", (acordo: Acordo) => {
+        onUpdateAcordo(acordo);
       });
 
       setConnection(connection);

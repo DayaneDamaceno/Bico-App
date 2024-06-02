@@ -43,5 +43,25 @@ export const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     paddingHorizontal: 10,
+    borderTopColor: "#CBD5E1",
+    borderTopWidth: 1,
+    paddingTop: 10,
+  },
+  action: {
+    width: 90,
+    height: 80,
+    padding: 10,
+    gap: 4,
+    backgroundColor: "#DBEAFE",
+    borderColor: "#007AF8",
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  actionText: {
+    color: "#007AF8",
+  },
+  actions: {
+    paddingHorizontal: 16,
+    paddingTop: 0,
   },
 });

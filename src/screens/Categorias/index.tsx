@@ -6,7 +6,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Text
+  Text,
 } from "react-native";
 import { styles } from "./styles";
 import { RootStackParamList } from "../../navigations/SearchStackNavigation";
@@ -15,7 +15,7 @@ import CategoriaItem from "../../components/CategoriaItem";
 import { obterCategorias } from "../../api/ApiService";
 import { Ionicons } from "@expo/vector-icons";
 import { useKeyboardOffset } from "../../hooks/useKeyboardOffset";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Entypo } from "@expo/vector-icons";
@@ -82,22 +82,26 @@ export function CategoriasScreen(props: Readonly<CategoriasScreenProps>) {
 
     if (allKeys != null) {
       for (let chave of chaveReverse) {
-        if (chave !== null) {
-          let valor = await AsyncStorage.getItem(chave);
+        if (chave === null || chave == "userToken") continue;
 
-          if (valor !== null) {
-            let item: ValorGuardado = {
-              chave: parseInt(chave),
-              valor: valor,
-            };
+        let valor = await AsyncStorage.getItem(chave);
 
-            list.push(item);
-          }
+        if (valor !== null) {
+          let item: ValorGuardado = {
+            chave: parseInt(chave),
+            valor: valor,
+          };
+
+          list.push(item);
         }
       }
       setContador(list);
     }
   };
+
+  useEffect(() => {
+    listData();
+  }, []);
 
   return (
     <KeyboardAvoidingView
