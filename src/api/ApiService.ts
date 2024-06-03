@@ -1,7 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 // const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-const apiUrl = "https://bico-api-hml.azurewebsites.net";
+const apiUrl = "http://192.168.0.60:5283";
 
 const api = axios.create({
   baseURL: apiUrl,
@@ -170,5 +171,38 @@ export const obterPrestador = async (
 ): Promise<Prestador[]> => {
   const response = await api.get(`/v1/prestadores?id=${prestadorId}`);
   console.log(response.data);
+  return response.data;
+};
+
+export interface Usuario {
+  id: number;
+  nome: string;
+  avatarUrl: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  localizacao: string;
+}
+
+export const obterUsuario = async (id: number): Promise<Usuario> => {
+  try {
+    Alert.alert(id.toString());
+
+    const response = await api.get(`/v1/usuarios?id=${id}`);
+
+    return response.data;   
+  } catch (error) {
+    throw console;
+  }
+};
+
+export const postAlterafoto = async (fotoApi: string): Promise<string> => {
+  console.log(fotoApi);
+  const response = await api.post(`/v1/usuarios/altera/imagem?fotoApi=${fotoApi}` );
+  return response.data;
+};
+
+export const postAlteraPerfilCliente = async (usuario: Usuario): Promise<Usuario> => {
+  const response = await api.post('/v1/usuarios/altera', usuario);
   return response.data;
 };

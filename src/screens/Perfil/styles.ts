@@ -11,6 +11,16 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row', // imagens serão posicionadas lado a lado horizontalmente
    },
+   button: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#3B82F6',
+    borderRadius: 50,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    elevation: 3,
+  },
    avaliacaoConteudo:{
     paddingLeft: 0,
     alignItems: 'flex-start',
