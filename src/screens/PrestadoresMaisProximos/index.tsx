@@ -3,12 +3,13 @@ import {
   FlatList,
   Text,
   RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 
 import { styles } from "./styles";
 import { PrestadorItem } from "../../components/PrestadorItem";
 import { usePrestadoresMaisProximos } from "../../hooks/usePrestadoresMaisProximos";
-import { RootStackParamList } from "../../navigations/StackNavigations";
+import { RootStackParamList } from "../../navigations/SearchStackNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type PrestadoresMaisProximosScreenProps = NativeStackScreenProps<
@@ -42,11 +43,21 @@ export function PrestadoresMaisProximosScreen(
     return <Text>Error: {(error as Error).message}</Text>;
   }
 
+  function handleCategoriaPress(prestadorId: number): void {
+    console.log("chegou no onpress");
+    props.navigation.navigate("Perfil", { prestadorId });
+  }
+
   return (
     <FlatList
       data={prestadores?.pages.flatMap((page) => page)}
       keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <PrestadorItem item={item} />}
+      renderItem={({ item }) => (
+        <PrestadorItem
+          item={item}
+          onPress={() => handleCategoriaPress(item.id)}
+        />
+      )}
       style={styles.lista}
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();

@@ -6,15 +6,16 @@ import { styles } from "./styles";
 
 interface PrestadorItemProps {
   item: Prestador;
+  onPress: () => void;
 }
 
-export function PrestadorItem({ item }: Readonly<PrestadorItemProps>) {
+export function PrestadorItem({ item, onPress }: Readonly<PrestadorItemProps>) {
   const mediaEstrelasFormatado = item.mediaEstrelas
     .toFixed(1)
     .replace(".", ",");
 
   return (
-    <TouchableOpacity style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={onPress}>
       <Image source={{ uri: item.avatarUrl }} style={styles.roundImage} />
       <View style={styles.info}>
         <Text style={styles.nome}>{item.nome}</Text>

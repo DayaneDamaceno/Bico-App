@@ -2,12 +2,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { ChatScreen } from "../screens/Chat";
 import { ProfileScreen } from "../screens/Profile";
-import { SearchStackNavigation } from "./StackNavigations";
+import { SearchStackNavigation } from "./SearchStackNavigation";
+import { ChatStackNavigation } from "./ChatStackNavigation";
 
 type TabParamList = {
-  Conversas: undefined;
+  ConversasTab: undefined;
   Search: undefined;
   Profile: undefined;
 };
@@ -28,8 +28,8 @@ export function TabNavigation() {
       }}
     >
       <Tab.Screen
-        name="Conversas"
-        component={ChatScreen}
+        name="ConversasTab"
+        component={ChatStackNavigation}
         options={{
           tabBarLabel: "Chat",
           tabBarIcon: ({ color, size }) => (
