@@ -2,7 +2,7 @@ import axios from "axios";
 import { Double } from "react-native/Libraries/Types/CodegenTypes";
 
 const api = axios.create({
-  baseURL: "http://192.168.0.60:5283",
+  baseURL: "http://192.168.0.11:5283",
 });
 
 export interface Categoria {
@@ -18,7 +18,7 @@ export interface FotoServico {
 
 export interface Avaliacoes {
   id: number;
-  conteudo: string; 
+  conteudo: string;
   quantidadeEstrelas: Double;
   clienteNome: string;
   avatarUrl: string;
@@ -28,7 +28,7 @@ export interface Prestador {
   id: number;
   nome: string;
   avatarUrl: string;
-  mediaEstrelas: Double; 
+  mediaEstrelas: Double;
   sobre: string;
   habilidades: Habilidade[];
   raioDeAlcance: number;
@@ -40,6 +40,9 @@ export const obterPrestadoresMaisProximos = async (
   habilidadeId: number,
   pagina: number = 0
 ): Promise<Prestador[]> => {
+  console.log(
+    `/v1/clientes/4/prestadores/proximos?habilidade=${habilidadeId}&pagina=${pagina}`
+  );
   const response = await api.get(
     `/v1/clientes/4/prestadores/proximos?habilidade=${habilidadeId}&pagina=${pagina}`
   );
@@ -66,13 +69,15 @@ export const obterHabilidadesBusca = async (
 };
 export const obterCategorias = async (): Promise<Categoria[]> => {
   const response = await api.get("/v1/categorias");
-  console.log('API Response:', response.data.nome);
+  console.log("API Response:", response.data.nome);
 
   return response.data;
 };
 
-export const obterPrestador = async (prestadorId?: number): Promise<Prestador[]> => {
-  const response = await api.get(`/v1/prestadores?numero=${prestadorId}`);
-  console.log(response.data)
+export const obterPrestador = async (
+  prestadorId?: number
+): Promise<Prestador[]> => {
+  const response = await api.get(`/v1/prestadores?id=${prestadorId}`);
+  console.log(response.data);
   return response.data;
 };

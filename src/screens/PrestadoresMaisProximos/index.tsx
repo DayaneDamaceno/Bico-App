@@ -48,20 +48,17 @@ export function PrestadoresMaisProximosScreen(
     props.navigation.navigate("Perfil", { prestadorId });
   }
 
-
   return (
     <FlatList
       data={prestadores?.pages.flatMap((page) => page)}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-      <TouchableOpacity
-      onPress={() => handleCategoriaPress(item.id)}
-      >
-      <PrestadorItem item={item} />     
-      </TouchableOpacity>
-      
+        <PrestadorItem
+          item={item}
+          onPress={() => handleCategoriaPress(item.id)}
+        />
       )}
-      style={styles.lista}      
+      style={styles.lista}
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();
       }}

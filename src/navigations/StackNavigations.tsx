@@ -3,13 +3,12 @@ import { PrestadoresMaisProximosScreen } from "../screens/PrestadoresMaisProximo
 import { HabilidadeScreen } from "../screens/Habilidades";
 import { CategoriasScreen } from "../screens/Categorias";
 import { PerfilScreen } from "../screens/Perfil";
-import { Prestador } from "../api/ApiService";
 
 export type RootStackParamList = {
   Categorias: undefined;
   Habilidades: { categoriaId?: number; textoBusca?: string };
   Prestadores: { habilidadeId: number };
-  Perfil: {prestadorId: number};
+  Perfil: { prestadorId: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
