@@ -43,7 +43,13 @@ export function LoginScreen(props: Readonly<LoginScreenProps>) {
 
         <View style={styles.segundaOpcao}>
           <Text style={styles.textoSecundario}>Não tem uma conta?</Text>
-          <Text style={styles.textoLink}>Crie uma</Text>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate("CadastroCliente");
+            }}
+          >
+            <Text style={styles.textoLink}>Crie uma</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.logo}>
