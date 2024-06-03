@@ -4,18 +4,20 @@ import { TabNavigation } from "./src/navigations/TabNavigation";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { AppNavigation } from "./src/navigations/AppNavigation";
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
           <StatusBar style="auto" />
-          <TabNavigation />
-        </NavigationContainer>
-      </QueryClientProvider>
+          <AppNavigation />
+        </QueryClientProvider>
+      </AuthProvider>
     </SafeAreaProvider>
   );
 }

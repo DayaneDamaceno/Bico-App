@@ -36,4 +36,36 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  historicoPesquisa: {
+    paddingHorizontal: 15,
+    marginTop: 12,
+    marginBottom: 12,
+    width: "100%",
+  },
+  historicoPesquisaTexto: {
+    fontSize: 16,
+    height: 50,
+    paddingTop: 15,
+  },
+  listaHistorico: {
+    width: "100%",
+  },
+  itemHistoricoArea: {
+    width: "100%",
+    flexDirection: "row",
+    gap: 5,
+    height: 40,
+    paddingTop: 9,
+    alignItems: "center",
+  },
+  itemHistoricoIcon: {
+    flexDirection: "row",
+    color: "#475569",
+    paddingTop: 2,
+  },
+  itemHistorico: {
+    flexDirection: "row",
+    fontSize: 14,
+    color: "#475569",
+  },
 });

@@ -3,7 +3,6 @@ import { View, ActivityIndicator, useWindowDimensions } from "react-native";
 import { useQuery } from "react-query";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigations/StackNavigations";
 import { obterPrestador, Prestador } from "../../api/ApiService";
 
 import { styles } from "./styles";
@@ -11,6 +10,7 @@ import TabSobre from "../../components/TabSobre";
 import TabAvaliacoes from "../../components/TabAvaliacoes";
 import ProfileDetail from "../../components/ProfileDetail";
 import Fotos from "../../components/Fotos";
+import { RootStackParamList } from "../../navigations/SearchStackNavigation";
 
 type PerfilScreenProps = NativeStackScreenProps<RootStackParamList, "Perfil">;
 
