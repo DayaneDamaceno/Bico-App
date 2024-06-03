@@ -4,6 +4,7 @@ import {
   Text,
   RefreshControl,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 import { styles } from "./styles";
@@ -54,14 +55,17 @@ export function PrestadoresMaisProximosScreen(
       data={prestadores?.pages.flatMap((page) => page)}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-      <TouchableOpacity
-      onPress={() => handleCategoriaPress(item.id)}
-      >
-      <PrestadorItem item={item} />     
-      </TouchableOpacity>
-      
+        <TouchableOpacity
+          onPress={() =>
+            props.navigation.navigate("Perfil", { prestadorId: item.id })
+          }
+        >
+          <View>
+            <PrestadorItem item={item}/>
+          </View>
+        </TouchableOpacity>
       )}
-      style={styles.lista}      
+      style={styles.lista}
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();
       }}

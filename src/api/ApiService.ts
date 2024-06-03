@@ -72,8 +72,9 @@ export const obterCategorias = async (): Promise<Categoria[]> => {
   return response.data;
 };
 
-export const obterPrestador = async (prestadorId?: number): Promise<Prestador[]> => {
-  const response = await api.get(`/v1/prestadores?numero=${prestadorId}`);
+export const obterPrestador = async (prestadorId: number): Promise<Prestador[]> => {
+  console.log("api" + prestadorId)
+  const response = await api.get(`/v1/prestadores?id=${prestadorId}`);
   return response.data;
 };
 export interface Usuario {
@@ -93,6 +94,12 @@ export const obterUsuario = async (id: number): Promise<Usuario> => {
   } catch (error) {
     throw console;
   }
+};
+
+export const postAlterafoto = async (fotoApi: string): Promise<string> => {
+  console.log(fotoApi);
+  const response = await api.post(`/v1/usuarios/altera/imagem?fotoApi=${fotoApi}` );
+  return response.data;
 };
 
 export const postAlteraPerfilCliente = async (usuario: Usuario): Promise<Usuario> => {

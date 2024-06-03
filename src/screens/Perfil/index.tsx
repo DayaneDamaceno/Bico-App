@@ -11,11 +11,10 @@ import {
   StyleProp,
   TextStyle,
   ViewStyle,
+  GestureResponderEvent,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { PrestadorItem } from "../../components/PrestadorItem";
-import { usePrestadoresMaisProximos } from "../../hooks/usePrestadoresMaisProximos";
 import { RootStackParamList } from "../../navigations/StackNavigations";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Prestador, obterPrestador } from "../../api/ApiService";
@@ -47,7 +46,18 @@ const renderTabBar = (props: React.JSX.IntrinsicAttributes & SceneRendererProps 
     inactiveColor={'grey'} // Cor do texto das abas inativas
   />
 );
+interface FloatingButtonProps {
+  onPress: (event: GestureResponderEvent) => void;
+}
 
+const FloatingButton: React.FC<FloatingButtonProps> = ({ onPress }) => {
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Ionicons name="chatbubble" size={24} color="white" />
+    </TouchableOpacity>
+  );
+};
 interface StarRatingProps {
   rating: Double; // Definindo que a propriedade 'rating' é do tipo número (double)
 }
@@ -118,7 +128,7 @@ const SecondRoute = ({ prestadores }: { prestadores?: Prestador[] }) => (
           </View>
           <FlatList
             data={item.avaliacoes}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <View style={styles.header}>
                 <View>
                   <Image
@@ -162,8 +172,10 @@ export function PerfilScreen(
     }
   };
   const { prestadorId } = props.route.params;
+  console.log(prestadorId)
+
   const { isLoading, data } = useQuery("prestador", () =>
-    obterPrestador(prestadorId)
+    obterPrestador(prestadorId),
   );
   if (isLoading) {
     return <ActivityIndicator />;
@@ -219,6 +231,7 @@ export function PerfilScreen(
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
       />
+      <FloatingButton onPress={() => console.log('Botão pressionado')} />
     </View>
   );
 }

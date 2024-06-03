@@ -14,7 +14,7 @@ export function PrestadorItem({ item }: Readonly<PrestadorItemProps>) {
     .replace(".", ",");
 
   return (
-    <TouchableOpacity style={styles.item}>
+    <View style={styles.item}>
       <Image source={{ uri: item.avatarUrl }} style={styles.roundImage} />
       <View style={styles.info}>
         <Text style={styles.nome}>{item.nome}</Text>
@@ -23,6 +23,6 @@ export function PrestadorItem({ item }: Readonly<PrestadorItemProps>) {
           <Text>{mediaEstrelasFormatado}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }

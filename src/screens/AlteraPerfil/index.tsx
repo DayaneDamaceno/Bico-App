@@ -4,37 +4,31 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Button,
   Image,
   ActivityIndicator,
   Platform,
-} from "react-native";
-import { styles } from "./styles";
+} from 'react-native';
+import { styles } from './styles';
 import { TextInputMask } from 'react-native-masked-text';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigations/StackNavigations';
 import { useQuery } from 'react-query';
 import { Usuario, obterUsuario, postAlteraPerfilCliente } from '../../api/ApiService';
-import * as ImagePicker from 'expo-image-picker';
-import { FontAwesome } from '@expo/vector-icons'; // Importando o ícone FontAwesome
+import { FontAwesome } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
 
 type AlteraPerfilScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  "AlteraPerfil"
+  'AlteraPerfil'
 >;
-
 type PhotoType = {
   uri: string;
 };
 
-export function AlteraPerfilScreen(
-  props: AlteraPerfilScreenProps
-) {
+export function AlteraPerfilScreen(props: AlteraPerfilScreenProps) {
   const { id } = props.route.params;
-  const { isLoading, data, error } = useQuery(["usuario", id], () =>
-    obterUsuario(id)
-  );
+  const { isLoading, data, error } = useQuery(['usuario', id], () => obterUsuario(id));
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [nome, setNome] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -54,7 +48,7 @@ export function AlteraPerfilScreen(
         }
       }
     })();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -63,12 +57,8 @@ export function AlteraPerfilScreen(
         alert('Desculpe, precisamos da permissão de localização para fazer isso funcionar!');
         return;
       }
-
       const location = await Location.getCurrentPositionAsync({});
-      console.log(location.coords.latitude);
       setLatitude(location.coords.latitude);
-      console.log(latitude);
-
       setLongitude(location.coords.longitude);
     };
 
@@ -86,11 +76,26 @@ export function AlteraPerfilScreen(
     }
   }, [data]);
 
-  const onPressSalvar = () => {
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setPhoto({ uri: result.assets[0].uri });
+    }
+  };
+
+  const onPressSalvar = async () => {
+   
+
     const usuario: Usuario = {
       id: id,
       nome: nome,
-      avatarUrl: avatarUrl,
+      avatarUrl: avatarUrl, // If imageUrl is empty, keep the current avatarUrl
       cpf: cpf,
       email: email,
       senha: senha,
@@ -100,8 +105,11 @@ export function AlteraPerfilScreen(
   };
 
   const onPressLoc = () => {
+    if (latitude !== null && longitude !== null) {
       setLocalizacao(`${latitude}|${longitude}`);
-   
+    } else {
+      alert('A localização não está disponível.');
+    }
   };
 
   if (isLoading) {
@@ -115,17 +123,19 @@ export function AlteraPerfilScreen(
 
   return (
     <View style={styles.container}>
-     <View>
-      <View style={styles.imagemContainer}>
-        <Image
-          source={{ uri: avatarUrl }}
-          style={styles.imagemPerfil}
-        />
-        <View style={styles.overlay}>
-          <FontAwesome name="pencil" size={48} color="white" />
-        </View>
+      <View>
+        <TouchableOpacity onPress={pickImage}>
+          <View style={styles.imagemContainer}>
+            <Image
+              source={{ uri: photo ? photo.uri : avatarUrl }}
+              style={styles.imagemPerfil}
+            />
+            <View style={styles.overlay}>
+              <FontAwesome name="pencil" size={48} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
-    </View>
       <View style={styles.inputAll}>
         <Text style={styles.textInput}>Nome</Text>
         <TextInput
@@ -143,12 +153,12 @@ export function AlteraPerfilScreen(
           placeholder="000.000.000-00"
           type={'custom'}
           options={{
-            mask: '999.999.999-99'
+            mask: '999.999.999-99',
           }}
           keyboardType="numeric"
           returnKeyType="done"
           value={cpf}
-          onChangeText={text => setCpf(text)}
+          onChangeText={setCpf}
         />
       </View>
       <View style={styles.inputAll}>
@@ -162,11 +172,10 @@ export function AlteraPerfilScreen(
         />
       </View>
       <View style={styles.margemH}>
-        <TouchableOpacity
-          style={styles.botaoCadastrar}
-          onPress={onPressLoc}
-        >
-          <Text style={styles.textoBotao}>Alterar Endereço para localização Atual?</Text>
+        <TouchableOpacity style={styles.botaoCadastrar} onPress={onPressLoc}>
+          <Text style={styles.textoBotao}>
+            Alterar Endereço para localização Atual?
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputAll}>
@@ -181,10 +190,7 @@ export function AlteraPerfilScreen(
         />
       </View>
       <View style={styles.margemH}>
-        <TouchableOpacity
-          style={styles.botaoCadastrar}
-          onPress={onPressSalvar}
-        >
+      <TouchableOpacity style={styles.botaoCadastrar} onPress={onPressSalvar}>
           <Text style={styles.textoBotao}>Salvar</Text>
         </TouchableOpacity>
       </View>
