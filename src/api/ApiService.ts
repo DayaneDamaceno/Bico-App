@@ -89,11 +89,7 @@ export interface Usuario {
 export const obterUsuario = async (id: number): Promise<Usuario> => {
   try {
     const response = await api.get(`/v1/usuarios?id=${id}`);
-    if (response.data && response.data.length > 0) {
-      return response.data[0];
-    } else {
-      throw console;
-    }
+    return response.data;   
   } catch (error) {
     throw console;
   }

@@ -28,14 +28,12 @@ export const styles = StyleSheet.create({
     //backgroundColor: "#470a10",
     justifyContent: 'center',
     paddingHorizontal: 10
-
   },
   textInput:{
     fontSize: 16,
     color: '#000000',
     fontWeight: '500',
     marginBottom:5
-
   },
   input:{
     width:"100%",
@@ -75,12 +73,27 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     position: 'absolute',
     bottom:0
-
   },
   textoLink: {
     fontSize: 14,
     color: '#025F8F',
     textDecorationLine: 'underline',
-  }
+  },
+  imagemContainer: {
+    position: 'relative',
+    overflow: 'hidden', // Para aplicar a sobreposição de forma correta
+    borderRadius: 100, // Para tornar a imagem redonda, se desejar
+    marginBottom: 80,
+  },
+  imagemPerfil: {
+    width: 120,
+    height: 120,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
 
 });
