@@ -21,8 +21,8 @@ export function useChatConnection({
   const { user } = useAuth();
   const [connection, setConnection] = useState<HubConnection | null>(null);
 
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-  // const apiUrl = "https://bico-api-hml.azurewebsites.net";
+  // const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  const apiUrl = "https://bico-api-hml.azurewebsites.net";
 
   useEffect(() => {
     if (user?.token) {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-// const apiUrl = "https://bico-api-hml.azurewebsites.net";
+// const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+const apiUrl = "https://bico-api-hml.azurewebsites.net";
 
 const api = axios.create({
   baseURL: apiUrl,
